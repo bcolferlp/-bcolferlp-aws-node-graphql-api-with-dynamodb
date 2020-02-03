@@ -1,9 +1,21 @@
 service: graphql-api
 
+custom:
+  deploymentBuckets: ${file(./serverless/deployment-buckets.yml)}
+  dynamoDBDeletePolicies:
+    prod: Retain # prevent dropping prod dynamodb tables if someone `sls remove -s prod`
+    # add other stages that may need Retain
+  dynamoDBDeletePolicy: ${self:custom.dynamoDBDeletePolicies.${self:provider.stage}, 'Delete'}
+
 provider:
   name: aws
-  profile: bcolfer-profile
+  profile: ${self:provider.stage}-profile
   runtime: nodejs12.x
+  stage: ${opt:stage}
+  region: ${opt:region, 'us-west-2'}
+  deploymentBucket:
+    name: ${self:custom.deploymentBuckets.${self:provider.stage}, self:custom.deploymentBuckets.default}
+    serverSideEncryption: AES256
   environment:
     DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
   iamRoleStatements:
@@ -11,7 +23,7 @@ provider:
       Action:
         - dynamodb:GetItem
         - dynamodb:UpdateItem
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
 functions:
   query:
@@ -25,6 +37,7 @@ resources:
   Resources:
     NicknamesTable:
       Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: ${self:custom.dynamoDBDeletePolicy}
       Properties:
         AttributeDefinitions:
           - AttributeName: firstName
