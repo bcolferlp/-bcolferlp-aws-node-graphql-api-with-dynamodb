@@ -1,7 +1,7 @@
 //@Library('jenkins-cicd-shared-lib') _
 
 pipeline {
-    agent  any 
+    agent docker { image 'node:12-stretch' } 
     environment {
         NPM_TOKEN             = credentials('npmjs bcolferlp PAT')
     }
@@ -19,19 +19,15 @@ pipeline {
 				withEnv(['NODE_ENV="test"','NVM_DIR="~/.nvm"']) {// Node specific term for unit tests
 					echo "Node environment will be:  ${NODE_ENV}"
 					echo "NPM_TOKEN is ${NPM_TOKEN}"
-					sh label: 'nvm', script: '''
-						echo "NVM_DIR=${NVM_DIR}"
-						which nvm
+					sh label: 'node', script: '''
 						nvm --version
-						nvm install node
-						nvm use node
 						node -v
+						npm prune
 					'''
-					//sh 'nvm --version'
-					//sh 'node -v'
-					//sh 'npm prune'
-					//sh 'npm ci'
-					//sh 'npm test'
+					sh label:'npm', script: '''
+						npm ci
+						npm test
+					'''
 				}
 			}
 	    }
