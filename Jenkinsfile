@@ -23,7 +23,9 @@ pipeline {
 					echo "NPM_TOKEN is ${NPM_TOKEN}"
 					sh label: 'node and npm cleanup', script: '''
 						node --version
-						npm prune
+						echo "run npm prune ... here"
+						echo "USER = $USER , $LOGIN"
+						pwd
 					'''
 					sh label:'npm', script: '''
 						npm ci
