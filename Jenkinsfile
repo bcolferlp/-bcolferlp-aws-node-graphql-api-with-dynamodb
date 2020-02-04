@@ -21,9 +21,8 @@ pipeline {
 				withEnv(['NODE_ENV="test"','NVM_DIR="~/.nvm"']) {// Node specific term for unit tests
 					echo "Node environment will be:  ${NODE_ENV}"
 					echo "NPM_TOKEN is ${NPM_TOKEN}"
-					sh label: 'node', script: '''
-						nvm --version
-						node -v
+					sh label: 'node and npm cleanup', script: '''
+						node --version
 						npm prune
 					'''
 					sh label:'npm', script: '''
