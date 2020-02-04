@@ -19,7 +19,7 @@ pipeline {
 				withEnv(["NODE_ENV='test'"]) {// Node specific term for unit tests
 					echo "Node environment will be:  ${NODE_ENV}"
 					echo "NPM_TOKEN is ${NPM_TOKEN}"
-					sh 'nvm install node 12'
+					sh 'nvm ls-remote'
 					sh 'node -v'
 					sh 'npm prune'
 					sh 'npm ci'
