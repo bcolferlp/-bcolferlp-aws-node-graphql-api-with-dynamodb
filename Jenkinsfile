@@ -58,12 +58,10 @@ pipeline {
 	    }
 
 	    stage ('deploy to production') {
-			timeout(time:24, unit: 'HOURS') {
-				input {
-					message 'Deploy to production?'
-					ok "Yes, the deployment has been verified."
-					submitter "squad-leaders,executives,devops"
-				}
+			input {
+				message 'Deploy to production?'
+				ok "Yes, the deployment has been verified."
+				submitter "squad-leaders,executives,devops"
 			}
 			steps {
 				echo "deploy to production"
