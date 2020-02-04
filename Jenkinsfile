@@ -17,8 +17,8 @@ pipeline {
 	    stage('Unit Test') {
 			steps {
 				withEnv(["NODE_ENV='test'"]) {// Node specific term for unit tests
-					print "Node environment will be:  ${NODE_ENV}"
-					print "NPM_TOKEN is ${NPM_TOKEN}
+					echo "Node environment will be:  ${NODE_ENV}"
+					echo "NPM_TOKEN is ${NPM_TOKEN}
 					sh 'node -v'
 					sh 'npm prune'
 					sh 'npm ci'
@@ -30,7 +30,7 @@ pipeline {
 	    stage('Deploy to test environments') {
 			steps {
 				withEnv(["NODE_ENV='integration'"]) {// Node specific term for unit tests
-					print "Node environment will be:  ${NODE_ENV}"
+					sh ' echo "Node environment will be:  ${NODE_ENV}"'
 
 					echo "Here is where the deploy to stage integration would happen"
 					echo "serverless deploy --stage=${NODE_ENV} "
