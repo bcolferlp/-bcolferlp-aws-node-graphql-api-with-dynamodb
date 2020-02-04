@@ -3,8 +3,6 @@
 pipeline {
     agent  any 
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
-        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
         NPM_TOKEN             = credentials('npmjs bcolferlp PAT')
     }
 
@@ -20,7 +18,7 @@ pipeline {
 			steps {
 				withEnv(["NODE_ENV='test'"]) {// Node specific term for unit tests
 					print "Node environment will be:  ${NODE_ENV}"
-					print "NPM_TOKEN is ${NPM_TOKEN}"
+					print "NPM_TOKEN is ${NPM_TOKEN}
 					sh 'node -v'
 					sh 'npm prune'
 					sh 'npm ci'
