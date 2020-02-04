@@ -20,6 +20,7 @@ pipeline {
 					echo "Node environment will be:  ${NODE_ENV}"
 					echo "NPM_TOKEN is ${NPM_TOKEN}"
 					sh label: 'nvm', script: '''
+						which nvm
 						nvm --version
 						nvm install node
 						nvm use node
