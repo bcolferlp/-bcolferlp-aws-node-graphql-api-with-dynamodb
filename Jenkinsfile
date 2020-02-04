@@ -35,10 +35,21 @@ pipeline {
         }
     }
 
-    parallel 'Run functional tests' : {
-        node(any) { echo "Run functional tests"},
-    }, 'Run security tests' : {
-        node(any) { echo "Run security tests"}
+    stage('Staging tests') {
+        when {
+            branch 'master'
+        }
+        failFast true
+
+        parallel {
+            stage('Run functional tests')  {
+                steps { echo "Run functional tests"}
+            }
+            stage ('Run security tests')  {
+                steps { echo "Run security tests"}
+            }
+        }
+
     }
 
     stage ('production') {
