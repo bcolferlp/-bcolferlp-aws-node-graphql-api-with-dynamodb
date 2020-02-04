@@ -16,7 +16,7 @@ pipeline {
 
 	    stage('Unit Test') {
 			steps {
-				withEnv(['NODE_ENV="test"','NVM_DIR="$HOME/.nvm"']) {// Node specific term for unit tests
+				withEnv(['NODE_ENV="test"','NVM_DIR="~/.nvm"']) {// Node specific term for unit tests
 					echo "Node environment will be:  ${NODE_ENV}"
 					echo "NPM_TOKEN is ${NPM_TOKEN}"
 					sh label: 'nvm', script: '''
