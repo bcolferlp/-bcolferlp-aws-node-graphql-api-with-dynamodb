@@ -1,7 +1,9 @@
 //@Library('jenkins-cicd-shared-lib') _
 
 pipeline {
-    agent docker { image 'node:12-stretch' } 
+    agent {
+        docker { image 'node:12-stretch' }
+    }
     environment {
         NPM_TOKEN             = credentials('npmjs bcolferlp PAT')
     }
