@@ -4,9 +4,6 @@ pipeline {
     agent {
         docker { image 'node:12-stretch' }
     }
-    environment {
-        NPM_TOKEN             = credentials('npmjs bcolferlp PAT')
-    }
 
     stages {
 
@@ -17,21 +14,25 @@ pipeline {
 	    }
 
 	    stage('Unit Test') {
+			environment {
+        		NPM_TOKEN   = credentials('npmjs bcolferlp PAT')
+				NODE_ENV	= "test"
+    		}
+			// TODO: remove
+			// this might be needed if the env var doesn't work 
+			//echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ./.npmrc
 			steps {
-				withEnv(['NODE_ENV="test"','NVM_DIR="~/.nvm"']) {// Node specific term for unit tests
-					echo "Node environment will be:  ${NODE_ENV}"
-					echo "NPM_TOKEN is ${NPM_TOKEN}"
-					sh label: 'node and npm cleanup', script: '''
-						node --version
-						echo "run npm prune ... here"
-						echo "USER = $USER , $LOGIN"
-						pwd
-					'''
-					sh label:'npm', script: '''
-						npm ci
-						npm test
-					'''
-				}
+				echo "Node environment will be:  ${NODE_ENV}"
+				echo "NPM_TOKEN is ${NPM_TOKEN}"
+				sh label: 'node and npm cleanup', script: '''
+					node --version
+					echo "run npm prune ... here"
+					pwd
+				'''
+				sh label:'npm', script: '''
+					npm ci
+					npm test
+				'''
 			}
 	    }
 
