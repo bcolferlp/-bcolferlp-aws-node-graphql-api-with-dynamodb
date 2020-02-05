@@ -1,3 +1,5 @@
+org: bcolferlp
+app: aws-node-graphql-dynamodb
 service: graphql-api
 
 provider:
