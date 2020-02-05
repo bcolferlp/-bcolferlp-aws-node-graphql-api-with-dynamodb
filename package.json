@@ -7,8 +7,9 @@
     "aws-sdk": "^2.610.0",
     "eslint-plugin-react": "^7.4.0",
     "graphql": "^0.11.7",
+    "jest": "^25.1.0",
+    "axios": "0.19.2",
     "jslint": "^0.12.1",
-    "serverless": "^1.63.0",
     "serverless-plugin-create-deployment-bucket": "0.0.2"
   },
   "devDependencies": {},
