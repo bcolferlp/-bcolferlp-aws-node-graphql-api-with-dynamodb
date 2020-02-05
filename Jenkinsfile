@@ -55,8 +55,11 @@ pipeline {
 		}
 
 	    stage('Staging tests') {
-
+			when {
+				branch 'origin/master'
+			}
 			failFast true
+
 			parallel {
 				stage('Run functional tests')  {
 				steps { echo "Run functional tests" }
