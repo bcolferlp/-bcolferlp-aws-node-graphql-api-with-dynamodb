@@ -40,9 +40,6 @@ pipeline {
 	    }
 
 	    stage('Deploy to test environments') {
-			agent {
-				docker { image 'node:12-stretch'}
-			}
 			environment {
 				NODE_ENV	= "integration"
 			}
@@ -58,10 +55,10 @@ pipeline {
 			failFast true
 			parallel {
 				stage('Run functional tests')  {
-				steps { echo "Run functional tests" }
+					steps { echo "Run functional tests" }
 				}
 				stage ('Run security tests')  {
-				steps { echo "Run security tests" }
+					steps { echo "Run security tests" }
 				}
 			}
 
