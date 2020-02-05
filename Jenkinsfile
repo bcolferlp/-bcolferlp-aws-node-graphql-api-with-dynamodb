@@ -31,7 +31,6 @@ pipeline {
 				echo "NPM_TOKEN is ${NPM_TOKEN}"
 				sh label: 'node and npm cleanup', script: '''
 					node --version
-					npm prune 
 				'''
 				sh label:'npm', script: '''
 					npm ci
@@ -55,11 +54,8 @@ pipeline {
 		}
 
 	    stage('Staging tests') {
-			when {
-				branch 'origin/master'
-			}
-			failFast true
 
+			failFast true
 			parallel {
 				stage('Run functional tests')  {
 				steps { echo "Run functional tests" }
@@ -75,7 +71,7 @@ pipeline {
 			input {
 				message 'Deploy to production?'
 				ok "Yes, the deployment has been verified."
-				submitter "squad-leaders,executives,devops"
+				//submitter "squad-leaders,executives,devops"
 			}
 			steps {
 				echo "deploy to production"
