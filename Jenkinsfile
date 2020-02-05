@@ -53,7 +53,7 @@ pipeline {
 
 	    stage('Staging tests') {
 			when {
-				branch 'master'
+				branch 'origin/master'
 			}
 			failFast true
 
