@@ -4,6 +4,9 @@ pipeline {
     agent {
         docker { image 'node:12-stretch' }
     }
+	environment {
+		 HOME = '.'
+	}
 
     stages {
 
