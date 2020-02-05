@@ -29,11 +29,11 @@ pipeline {
 				echo "NPM_TOKEN is ${NPM_TOKEN}"
 				sh label: 'node and npm cleanup', script: '''
 					node --version
-					run npm prune 
+					npm prune 
 				'''
 				sh label:'npm', script: '''
 					npm ci
-					echo "run npm test"
+					echo "#npm test"
 				'''
 			}
 	    }
