@@ -35,12 +35,15 @@ pipeline {
 				'''
 				sh label:'npm', script: '''
 					npm ci
-					echo "#npm test"
+					echo "npm test"
 				'''
 			}
 	    }
 
 	    stage('Deploy to test environments') {
+			agent {
+				docker { image 'node:12-stretch'}
+			}
 			environment {
 				NODE_ENV	= "integration"
 			}
