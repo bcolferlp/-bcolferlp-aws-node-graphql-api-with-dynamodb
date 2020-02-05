@@ -13,6 +13,8 @@ pipeline {
 	    stage('Checkout Source'){
 			steps {
 				checkout scm
+				echo "GIT_BRANCH: $GIT_BRANCH"
+				echo "GIT_COMMIT: $GIT_COMMIT"
 			}
 	    }
 
@@ -39,10 +41,11 @@ pipeline {
 	    }
 
 	    stage('Deploy to test environments') {
+			environmetnt {
+				NODE_ENV	= "test"
+			}
 			steps {
-				withEnv(["NODE_ENV='integration'"]) {// Node specific term for unit tests
 					sh ' echo "Node environment will be:  ${NODE_ENV}"'
-
 					echo "Here is where the deploy to stage integration would happen"
 					echo "serverless deploy --stage=${NODE_ENV} "
 				}
