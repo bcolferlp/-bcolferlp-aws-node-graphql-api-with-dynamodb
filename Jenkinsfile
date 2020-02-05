@@ -41,8 +41,8 @@ pipeline {
 	    }
 
 	    stage('Deploy to test environments') {
-			environmetnt {
-				NODE_ENV	= "test"
+			environment {
+				NODE_ENV	= "integration"
 			}
 			steps {
 					sh ' echo "Node environment will be:  ${NODE_ENV}"'
