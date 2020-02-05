@@ -86,5 +86,4 @@ pipeline {
 				echo "run the production tests here"
 			}
 	    }
-    }
 }
