@@ -45,12 +45,11 @@ pipeline {
 				NODE_ENV	= "integration"
 			}
 			steps {
-					sh ' echo "Node environment will be:  ${NODE_ENV}"'
-					echo "Here is where the deploy to stage integration would happen"
-					echo "serverless deploy --stage=${NODE_ENV} "
-				}
+				sh ' echo "Node environment will be:  ${NODE_ENV}"'
+				echo "Here is where the deploy to stage integration would happen"
+				echo "serverless deploy --stage=${NODE_ENV} "
 			}
-	    }
+		}
 
 	    stage('Staging tests') {
 			when {
