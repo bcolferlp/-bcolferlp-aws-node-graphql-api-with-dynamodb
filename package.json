@@ -8,7 +8,7 @@
     "eslint-plugin-react": "^7.4.0",
     "graphql": "^0.11.7",
     "jest": "^25.1.0",
-    "axios": "0.19.2",
+    "axios": "0.21.1",
     "jslint": "^0.12.1",
     "serverless-plugin-create-deployment-bucket": "0.0.2"
   },
